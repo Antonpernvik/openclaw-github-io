@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenClaw — The Future of AI Tools</title>
+  <meta name="description" content="OpenClaw is the next generation AI-powered tool reshaping how we work, think and build in 2026." />
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="OpenClaw — The Future of AI Tools" />
+  <meta property="og:description" content="Next-generation AI toolkit. Deeply contextual, blazingly fast, radically open." />
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://openclaw.github.io" />
+  <meta name="theme-color"        content="#050508" />
+
+  <!-- SVG Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%236366f1'/><stop offset='1' stop-color='%2306b6d4'/></linearGradient></defs><polygon points='50,5 93,27.5 93,72.5 50,95 7,72.5 7,27.5' fill='url(%23g)'/></svg>" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ── NAV ─────────────────────────────────────────────── -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="nav__logo" href="#">
+        <span class="nav__logo-mark">⬡</span>
+        OpenClaw
+      </a>
+      <ul class="nav__links">
+        <li><a href="#ai-2026">AI in 2026</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#insights">Insights</a></li>
+        <li><a href="#cta-bottom" class="nav__cta">Get Early Access</a></li>
+      </ul>
+      <button class="nav__burger" id="burger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile" id="mobileMenu">
+      <a href="#ai-2026">AI in 2026</a>
+      <a href="#about">About</a>
+      <a href="#insights">Insights</a>
+      <a href="#cta-bottom">Get Early Access</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ─────────────────────────────────────────────── -->
+  <section class="hero" id="hero">
+    <div class="hero__grid"></div>
+    <canvas class="hero__canvas" id="particleCanvas"></canvas>
+    <div class="hero__glow hero__glow--1" id="glow1"></div>
+    <div class="hero__glow hero__glow--2" id="glow2"></div>
+    <div class="hero__glow hero__glow--3"></div>
+    <div class="hero__content">
+      <div class="hero__eyebrow reveal">
+        <span class="dot"></span> Now in public beta · 2026
+      </div>
+      <h1 class="hero__title reveal reveal--delay-1">
+        The AI that<br />
+        <span class="gradient-text">thinks ahead</span><br />
+        of everything.
+      </h1>
+      <p class="hero__sub reveal reveal--delay-2">
+        OpenClaw is a next-generation AI toolkit built for the way humans and machines actually work together — deeply contextual, blazingly fast, and radically open.
+      </p>
+      <div class="hero__actions reveal reveal--delay-3">
+        <a href="#cta-bottom" class="btn btn--primary">
+          Get Early Access
+          <svg class="btn__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#about" class="btn btn--ghost">See how it works</a>
+      </div>
+      <div class="hero__stats reveal reveal--delay-4">
+        <div class="stat">
+          <span class="stat__num" data-target="2400">0</span><span class="stat__suffix">+</span>
+          <span class="stat__label">Beta users</span>
+        </div>
+        <div class="stat__divider"></div>
+        <div class="stat">
+          <span class="stat__num" data-target="98">0</span><span class="stat__suffix">%</span>
+          <span class="stat__label">Task accuracy</span>
+        </div>
+        <div class="stat__divider"></div>
+        <div class="stat">
+          <span class="stat__num" data-target="12">0</span><span class="stat__suffix">x</span>
+          <span class="stat__label">Faster than manual</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero__scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ── LOGO STRIP ────────────────────────────────────────── -->
+  <section class="strip">
+    <p class="strip__label">Trusted by teams at</p>
+    <div class="strip__track">
+      <div class="strip__items">
+        <span>Vercel</span>
+        <span>Linear</span>
+        <span>Figma</span>
+        <span>Notion</span>
+        <span>Loom</span>
+        <span>Stripe</span>
+        <span>Retool</span>
+        <span>Vercel</span>
+        <span>Linear</span>
+        <span>Figma</span>
+        <span>Notion</span>
+        <span>Loom</span>
+        <span>Stripe</span>
+        <span>Retool</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── AI IN 2026 ─────────────────────────────────────────── -->
+  <section class="section" id="ai-2026">
+    <div class="container">
+      <div class="section__header reveal">
+        <span class="section__tag">The Shift</span>
+        <h2 class="section__title">AI in 2026.<br /><span class="gradient-text">It's not coming — it's here.</span></h2>
+        <p class="section__sub">Every industry is being rewritten. The question is no longer whether AI will change your work — it's whether you'll be ready when it does.</p>
+      </div>
+
+      <div class="cards-grid">
+
+        <div class="card reveal">
+          <div class="card__icon">
+            <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" stroke="url(#g1)" stroke-width="2"/><path d="M16 24h16M24 16v16" stroke="url(#g1)" stroke-width="2" stroke-linecap="round"/><defs><linearGradient id="g1" x1="8" y1="8" x2="40" y2="40"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs></svg>
+          </div>
+          <h3>Context is the new interface</h3>
+          <p>In 2026 the best AI tools don't ask you to change how you work — they adapt to your existing workflows and understand the full context of every task.</p>
+        </div>
+
+        <div class="card reveal reveal--delay-1">
+          <div class="card__icon">
+            <svg viewBox="0 0 48 48" fill="none"><rect x="8" y="8" width="32" height="32" rx="8" stroke="url(#g2)" stroke-width="2"/><path d="M16 24l6 6 10-12" stroke="url(#g2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="g2" x1="8" y1="8" x2="40" y2="40"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs></svg>
+          </div>
+          <h3>Agents that actually ship</h3>
+          <p>Autonomous AI agents moved from demos to production. They write code, run tests, deploy features, and flag issues — all while keeping humans in the loop.</p>
+        </div>
+
+        <div class="card reveal reveal--delay-2">
+          <div class="card__icon">
+            <svg viewBox="0 0 48 48" fill="none"><polygon points="24,6 42,38 6,38" stroke="url(#g3)" stroke-width="2" stroke-linejoin="round"/><path d="M24 20v10" stroke="url(#g3)" stroke-width="2" stroke-linecap="round"/><circle cx="24" cy="34" r="1.5" fill="url(#g3)"/><defs><linearGradient id="g3" x1="6" y1="6" x2="42" y2="42"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs></svg>
+          </div>
+          <h3>The gap is widening fast</h3>
+          <p>Companies adopting AI-native tooling in 2026 are operating at a pace that makes traditional workflows look frozen. The compounding advantage is real and growing.</p>
+        </div>
+
+        <div class="card card--wide reveal reveal--delay-1">
+          <div class="card__wide-inner">
+            <div>
+              <h3>The numbers don't lie</h3>
+              <p>By the end of 2026 an estimated 40% of all knowledge work will involve an AI co-pilot. The tools that win are the ones that feel invisible — so powerful they just become how you work.</p>
+            </div>
+            <div class="card__meter">
+              <div class="meter-bar">
+                <span class="meter-label">Knowledge work with AI</span>
+                <div class="meter-track"><div class="meter-fill" data-width="40"></div></div>
+                <span class="meter-val">40%</span>
+              </div>
+              <div class="meter-bar">
+                <span class="meter-label">Dev productivity boost</span>
+                <div class="meter-track"><div class="meter-fill" data-width="72"></div></div>
+                <span class="meter-val">72%</span>
+              </div>
+              <div class="meter-bar">
+                <span class="meter-label">Companies adopting AI tools</span>
+                <div class="meter-track"><div class="meter-fill" data-width="85"></div></div>
+                <span class="meter-val">85%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT / FEATURES ───────────────────────────────────── -->
+  <section class="section section--dark" id="about">
+    <div class="container">
+      <div class="section__header reveal">
+        <span class="section__tag">OpenClaw</span>
+        <h2 class="section__title">Built different.<br /><span class="gradient-text">Works different.</span></h2>
+        <p class="section__sub">OpenClaw isn't just another AI wrapper. It's a purpose-built intelligence layer that plugs into the tools you already use and supercharges every action you take.</p>
+      </div>
+
+      <div class="features">
+        <div class="features__visual reveal">
+          <div class="terminal">
+            <div class="terminal__bar">
+              <span class="terminal__dot terminal__dot--red"></span>
+              <span class="terminal__dot terminal__dot--yellow"></span>
+              <span class="terminal__dot terminal__dot--green"></span>
+              <span class="terminal__title">openclaw · agent</span>
+            </div>
+            <div class="terminal__body" id="terminalBody">
+              <div class="terminal__line"><span class="t-prompt">$</span> <span class="t-cmd">openclaw analyze --target ./src</span></div>
+              <div class="terminal__line terminal__line--out">→ Scanning 847 files...</div>
+              <div class="terminal__line terminal__line--out">→ Building dependency graph...</div>
+              <div class="terminal__line terminal__line--out">→ Running centrality analysis...</div>
+              <div class="terminal__line terminal__line--highlight">✓ Found 12 high-impact refactor opportunities</div>
+              <div class="terminal__line terminal__line--highlight">✓ 3 critical paths identified</div>
+              <div class="terminal__line terminal__line--out">→ Generating recommendations...</div>
+              <div class="terminal__line"><span class="t-prompt">$</span> <span class="t-cursor">_</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="features__list">
+          <div class="feature reveal reveal--delay-1">
+            <div class="feature__num">01</div>
+            <div class="feature__body">
+              <h3>Graph-native intelligence</h3>
+              <p>OpenClaw builds a live knowledge graph of your codebase, content, or workflow — understanding relationships, not just keywords.</p>
+            </div>
+          </div>
+          <div class="feature reveal reveal--delay-2">
+            <div class="feature__num">02</div>
+            <div class="feature__body">
+              <h3>PageRank for everything</h3>
+              <p>We apply graph centrality algorithms — the same math behind Google's original search — to rank pages, files and ideas by structural importance.</p>
+            </div>
+          </div>
+          <div class="feature reveal reveal--delay-3">
+            <div class="feature__num">03</div>
+            <div class="feature__body">
+              <h3>One command, full picture</h3>
+              <p>Point OpenClaw at any sitemap, repo, or dataset and get an interactive visual map with actionable insights in seconds, not hours.</p>
+            </div>
+          </div>
+          <div class="feature reveal reveal--delay-4">
+            <div class="feature__num">04</div>
+            <div class="feature__body">
+              <h3>Works where you work</h3>
+              <p>VS Code extension, CLI, API, and web app — OpenClaw integrates directly into your existing environment with zero friction.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── INSIGHTS / ARTICLES ────────────────────────────────── -->
+  <section class="section" id="insights">
+    <div class="container">
+      <div class="section__header reveal">
+        <span class="section__tag">Insights</span>
+        <h2 class="section__title">Fresh thinking on<br /><span class="gradient-text">AI & the future of work.</span></h2>
+      </div>
+
+      <div class="articles">
+
+        <article class="article article--featured reveal">
+          <div class="article__tag">Deep Dive</div>
+          <h2 class="article__title">Why PageRank is the secret weapon hidden in your content strategy</h2>
+          <p class="article__excerpt">Google cracked the web with a single insight: not all pages are equal. The same logic applies to your internal architecture — and most teams are ignoring it completely.</p>
+          <div class="article__meta">
+            <div class="article__avatar">OC</div>
+            <div>
+              <span class="article__author">OpenClaw Team</span>
+              <span class="article__date">Feb 20, 2026</span>
+            </div>
+          </div>
+          <a href="#" class="article__link">Read article →</a>
+        </article>
+
+        <div class="articles__side">
+
+          <article class="article-card reveal reveal--delay-1">
+            <div class="article-card__tag">AI Trends</div>
+            <h3>The agent economy: what happens when AI can hire other AI</h3>
+            <div class="article-card__meta">
+              <span>Jan 14, 2026</span>
+              <span>6 min read</span>
+            </div>
+            <a href="#" class="article__link">Read →</a>
+          </article>
+
+          <article class="article-card reveal reveal--delay-2">
+            <div class="article-card__tag">Tooling</div>
+            <h3>VS Code in 2026: the IDE that became a platform</h3>
+            <div class="article-card__meta">
+              <span>Jan 28, 2026</span>
+              <span>4 min read</span>
+            </div>
+            <a href="#" class="article__link">Read →</a>
+          </article>
+
+          <article class="article-card reveal reveal--delay-3">
+            <div class="article-card__tag">Strategy</div>
+            <h3>Graph theory for content teams: a practical intro</h3>
+            <div class="article-card__meta">
+              <span>Feb 5, 2026</span>
+              <span>8 min read</span>
+            </div>
+            <a href="#" class="article__link">Read →</a>
+          </article>
+
+          <article class="article-card reveal reveal--delay-4">
+            <div class="article-card__tag">Engineering</div>
+            <h3>Building production-grade AI pipelines without the drama</h3>
+            <div class="article-card__meta">
+              <span>Feb 12, 2026</span>
+              <span>5 min read</span>
+            </div>
+            <a href="#" class="article__link">Read →</a>
+          </article>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA BOTTOM ─────────────────────────────────────────── -->
+  <section class="cta-section" id="cta-bottom">
+    <div class="cta-section__glow"></div>
+    <div class="container">
+      <div class="cta-box reveal">
+        <span class="section__tag">Early Access</span>
+        <h2>Be first. <span class="gradient-text">Get ahead.</span></h2>
+        <p>Join the waitlist for OpenClaw and get access before public launch. No credit card required.</p>
+        <form class="cta-form" id="ctaForm">
+          <input type="email" class="cta-form__input" placeholder="your@email.com" required />
+          <button type="submit" class="btn btn--primary">Join Waitlist</button>
+        </form>
+        <p class="cta-form__note">Already 2,400+ people on the list. We're accepting teams in batches.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <a class="nav__logo" href="#">
+            <span class="nav__logo-mark">⬡</span>
+            OpenClaw
+          </a>
+          <p>Intelligence built for the way you actually work.</p>
+        </div>
+        <div class="footer__links">
+          <div class="footer__col">
+            <span class="footer__col-title">Product</span>
+            <a href="#">Features</a>
+            <a href="#">Pricing</a>
+            <a href="#">Changelog</a>
+            <a href="#">Roadmap</a>
+          </div>
+          <div class="footer__col">
+            <span class="footer__col-title">Developers</span>
+            <a href="#">Docs</a>
+            <a href="#">API</a>
+            <a href="#">VS Code Extension</a>
+            <a href="#">GitHub</a>
+          </div>
+          <div class="footer__col">
+            <span class="footer__col-title">Company</span>
+            <a href="#">About</a>
+            <a href="#">Blog</a>
+            <a href="#">Careers</a>
+            <a href="#">Contact</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2026 OpenClaw. All rights reserved.</span>
+        <div class="footer__legal">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
