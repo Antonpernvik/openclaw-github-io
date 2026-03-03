@@ -346,20 +346,37 @@ function trackEvent(name, params) {
   const form = document.getElementById('ctaForm');
   if (!form) return;
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const input = form.querySelector('input[type=email]');
     const btn   = form.querySelector('button');
 
     if (!input.value) return;
 
-    trackEvent('waitlist_signup', { email: input.value });
+    btn.textContent = 'Sending…';
+    btn.disabled    = true;
 
-    btn.textContent = 'You\'re on the list! ✓';
-    btn.style.background = 'linear-gradient(135deg, #10b981, #06b6d4)';
-    btn.style.boxShadow  = '0 0 40px rgba(16,185,129,0.4)';
-    input.disabled = true;
-    btn.disabled   = true;
+    try {
+      const res = await fetch('https://formspree.io/f/mykdqolj', {
+        method:  'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ email: input.value }),
+      });
+
+      if (res.ok) {
+        trackEvent('waitlist_signup', { email: input.value });
+        btn.textContent = 'You\'re on the list! ✓';
+        btn.style.background = 'linear-gradient(135deg, #10b981, #06b6d4)';
+        btn.style.boxShadow  = '0 0 40px rgba(16,185,129,0.4)';
+        input.disabled = true;
+      } else {
+        btn.textContent = 'Try again';
+        btn.disabled    = false;
+      }
+    } catch {
+      btn.textContent = 'Try again';
+      btn.disabled    = false;
+    }
   });
 })();
 
