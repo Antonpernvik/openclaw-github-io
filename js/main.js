@@ -449,21 +449,23 @@ function trackEvent(name, params) {
   }
 
   async function loadFeed() {
-    const ids    = await fetch('https://hacker-news.firebaseio.com/v0/topstories.json').then(r => r.json());
-    const top4   = ids.slice(0, 4);
-    const stories = await Promise.all(
-      top4.map(id => fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(r => r.json()))
-    );
+    try {
+      const ids = await fetch('https://hacker-news.firebaseio.com/v0/topstories.json').then(r => r.json());
+      const stories = await Promise.all(
+        ids.slice(0, 4).map(id => fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(r => r.json()))
+      );
 
-    feed.innerHTML = '';
-    stories.forEach((story, i) => feed.appendChild(renderCard(story, i)));
+      feed.innerHTML = '';
+      stories.forEach((story, i) => feed.appendChild(renderCard(story, i)));
 
-    // Re-attach tracking to new cards
-    feed.querySelectorAll('.article__link').forEach(a => {
-      a.addEventListener('click', () => {
-        trackEvent('article_click', { article_title: a.closest('article').querySelector('h3').textContent.trim() });
+      feed.querySelectorAll('.article__link').forEach(a => {
+        a.addEventListener('click', () => {
+          trackEvent('article_click', { article_title: a.closest('article').querySelector('h3').textContent.trim() });
+        });
       });
-    });
+    } catch (err) {
+      console.warn('HN feed failed:', err);
+    }
   }
 
   loadFeed();
