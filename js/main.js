@@ -435,7 +435,7 @@ function trackEvent(name, params) {
 
   function renderCard(story, idx) {
     const el = document.createElement('article');
-    el.className = `article-card reveal reveal--delay-${idx + 1}`;
+    el.className = 'article-card reveal visible';
     el.innerHTML = `
       <div class="article-card__tag">${TAGS[idx]}</div>
       <h3>${story.title}</h3>
