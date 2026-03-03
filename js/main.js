@@ -419,6 +419,56 @@ function trackEvent(name, params) {
   });
 })();
 
+/* ── HACKER NEWS LIVE FEED ──────────────────────── */
+(function initHNFeed() {
+  const feed = document.getElementById('hnFeed');
+  if (!feed) return;
+
+  const TAGS = ['AI Trends', 'Tooling', 'Strategy', 'Engineering'];
+
+  function timeAgo(unixSec) {
+    const diff = Math.floor((Date.now() / 1000) - unixSec);
+    if (diff < 3600)  return Math.floor(diff / 60) + ' min ago';
+    if (diff < 86400) return Math.floor(diff / 3600) + 'h ago';
+    return Math.floor(diff / 86400) + 'd ago';
+  }
+
+  function renderCard(story, idx) {
+    const el = document.createElement('article');
+    el.className = `article-card reveal reveal--delay-${idx + 1}`;
+    el.innerHTML = `
+      <div class="article-card__tag">${TAGS[idx]}</div>
+      <h3>${story.title}</h3>
+      <div class="article-card__meta">
+        <span>${timeAgo(story.time)}</span>
+        <span>${story.score} points</span>
+      </div>
+      <a href="${story.url || 'https://news.ycombinator.com/item?id=' + story.id}"
+         class="article__link" target="_blank" rel="noopener">Read →</a>`;
+    return el;
+  }
+
+  async function loadFeed() {
+    const ids    = await fetch('https://hacker-news.firebaseio.com/v0/topstories.json').then(r => r.json());
+    const top4   = ids.slice(0, 4);
+    const stories = await Promise.all(
+      top4.map(id => fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(r => r.json()))
+    );
+
+    feed.innerHTML = '';
+    stories.forEach((story, i) => feed.appendChild(renderCard(story, i)));
+
+    // Re-attach tracking to new cards
+    feed.querySelectorAll('.article__link').forEach(a => {
+      a.addEventListener('click', () => {
+        trackEvent('article_click', { article_title: a.closest('article').querySelector('h3').textContent.trim() });
+      });
+    });
+  }
+
+  loadFeed();
+})();
+
 /* ── EVENT TRACKING ─────────────────────────────── */
 (function initTracking() {
   // Hero: "Get Early Access"
