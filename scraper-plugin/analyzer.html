@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>OpenClaw — Link Analyzer</title>
+<style>
+/* ─── Reset ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+body {
+  background: #050508;
+  color: #f0f0f8;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Loading view ─── */
+#view-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 20px;
+}
+#view-loading .logo { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
+#view-loading .logo span {
+  background: linear-gradient(135deg, #6366f1, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.url-display {
+  font-size: 13px;
+  color: #7a7a98;
+  max-width: 500px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.bar-track {
+  width: 400px;
+  max-width: 80vw;
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #06b6d4);
+  border-radius: 2px;
+  width: 0;
+  transition: width 0.4s;
+}
+#status { font-size: 13px; color: #7a7a98; min-height: 20px; text-align: center; max-width: 500px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#count  { font-size: 12px; color: #4a4a68; }
+
+/* ─── Error view ─── */
+#view-error {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 16px;
+  padding: 32px;
+  text-align: center;
+}
+#view-error .logo { font-size: 28px; font-weight: 800; }
+.err-msg { color: #f87171; font-size: 15px; max-width: 500px; line-height: 1.6; }
+.err-hint { color: #4a4a68; font-size: 13px; }
+
+/* ─── Results view ─── */
+#view-results {
+  display: none;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* ─── Header ─── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: #0a0a10;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  flex-shrink: 0;
+  gap: 12px;
+}
+.logo-wrap { font-size: 18px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+.logo-hex { background: linear-gradient(135deg, #6366f1, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.meta-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+.pill {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50px;
+  padding: 4px 12px;
+  font-size: 12px;
+  color: #7a7a98;
+}
+.pill strong { color: #f0f0f8; }
+.actions { display: flex; gap: 8px; flex-shrink: 0; }
+.btn-export {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 6px 14px;
+  color: #f0f0f8;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-export:hover { border-color: #6366f1; background: rgba(99,102,241,0.12); }
+
+/* ─── Body layout ─── */
+.body-wrap { display: flex; flex: 1; overflow: hidden; }
+
+/* ─── Sidebar ─── */
+.sidebar {
+  width: 300px;
+  flex-shrink: 0;
+  background: #0a0a10;
+  border-right: 1px solid rgba(255,255,255,0.07);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.sidebar-title {
+  padding: 16px 16px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #4a4a68;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.sidebar-list { overflow-y: auto; flex: 1; padding: 8px; }
+.sidebar-list::-webkit-scrollbar { width: 4px; }
+.sidebar-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.row:hover { background: rgba(255,255,255,0.05); }
+.rank { font-size: 11px; font-weight: 700; color: #4a4a68; min-width: 24px; text-align: right; }
+.info { flex: 1; overflow: hidden; }
+.label { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.meta { font-size: 11px; color: #4a4a68; margin-top: 2px; }
+.bar-outer { width: 100%; height: 3px; background: rgba(255,255,255,0.05); border-radius: 2px; margin-top: 4px; }
+.bar-inner { height: 100%; background: linear-gradient(90deg, #6366f1, #06b6d4); border-radius: 2px; }
+
+/* ─── Graph ─── */
+.graph-wrap { flex: 1; overflow: hidden; position: relative; }
+#graph { width: 100%; height: 100%; }
+
+/* ─── Tooltip ─── */
+.tooltip {
+  position: absolute;
+  background: #0f0f18;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 13px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  max-width: 280px;
+  z-index: 10;
+  line-height: 1.5;
+}
+.tooltip-url { font-weight: 600; word-break: break-all; margin-bottom: 6px; color: #e2e2f0; }
+.tooltip-meta { color: #7a7a98; font-size: 12px; }
+.tooltip-rank { color: #06b6d4; font-weight: 700; font-size: 14px; margin-top: 4px; }
+
+/* ─── Controls ─── */
+.controls {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ctrl-btn {
+  background: rgba(15,15,24,0.9);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #f0f0f8;
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+.ctrl-btn:hover { border-color: #6366f1; background: rgba(99,102,241,0.15); }
+
+/* ─── Legend ─── */
+.legend {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(10,10,16,0.85);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 12px;
+}
+.legend-title { color: #4a4a68; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; font-size: 10px; margin-bottom: 8px; }
+.legend-row { display: flex; align-items: center; gap: 8px; margin-top: 6px; color: #7a7a98; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<!-- ── Loading view ── -->
+<div id="view-loading">
+  <div class="logo">⬡ <span>OpenClaw</span></div>
+  <div class="url-display" id="urlDisplay"></div>
+  <div class="bar-track"><div class="bar-fill" id="bar"></div></div>
+  <div id="status">Fetching sitemap…</div>
+  <div id="count"></div>
+</div>
+
+<!-- ── Error view ── -->
+<div id="view-error">
+  <div class="logo">⬡ OpenClaw</div>
+  <div class="err-msg" id="errMsg"></div>
+  <p class="err-hint">Close this tab and try again from the extension popup.</p>
+</div>
+
+<!-- ── Results view ── -->
+<div id="view-results">
+  <div class="header">
+    <div class="logo-wrap"><span class="logo-hex">⬡</span> OpenClaw — Link Analyzer</div>
+    <div class="meta-pills">
+      <div class="pill"><strong id="nodeCount">0</strong> pages</div>
+      <div class="pill"><strong id="edgeCount">0</strong> links</div>
+      <div class="pill" id="hostPill"></div>
+    </div>
+    <div class="actions">
+      <button class="btn-export" id="btnExportJSON">⬇ JSON</button>
+      <button class="btn-export" id="btnExportCSV">⬇ CSV</button>
+    </div>
+  </div>
+
+  <div class="body-wrap">
+    <div class="sidebar">
+      <div class="sidebar-title">Top 10 by PageRank</div>
+      <div class="sidebar-list" id="sidebarList"></div>
+    </div>
+    <div class="graph-wrap" id="graphWrap">
+      <svg id="graph"></svg>
+      <div class="tooltip" id="tooltip"></div>
+      <div class="legend">
+        <div class="legend-title">Node color = PageRank</div>
+        <div class="legend-row"><div class="legend-dot" style="background:#6366f1"></div>Low</div>
+        <div class="legend-row"><div class="legend-dot" style="background:#06b6d4"></div>High</div>
+      </div>
+      <div class="controls">
+        <button class="ctrl-btn" id="btnCenter">⊙ Center</button>
+        <button class="ctrl-btn" id="btnFreeze">⏸ Freeze</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="d3.min.js"></script>
+<script src="analyzer.js"></script>
+</body>
+</html>

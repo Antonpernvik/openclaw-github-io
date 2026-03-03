@@ -20,6 +20,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Google Analytics 4 — byt ut G-XXXXXXXXXX mot ditt riktiga Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
 </head>
 <body>
 
@@ -34,7 +43,7 @@
         <li><a href="#ai-2026">AI in 2026</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#insights">Insights</a></li>
-        <li><a href="#cta-bottom" class="nav__cta">Get Early Access</a></li>
+        <li><a href="#cta-bottom" class="nav__cta">Sign Up</a></li>
       </ul>
       <button class="nav__burger" id="burger" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -56,9 +65,6 @@
     <div class="hero__glow hero__glow--2" id="glow2"></div>
     <div class="hero__glow hero__glow--3"></div>
     <div class="hero__content">
-      <div class="hero__eyebrow reveal">
-        <span class="dot"></span> Now in public beta · 2026
-      </div>
       <h1 class="hero__title reveal reveal--delay-1">
         The AI that<br />
         <span class="gradient-text">thinks ahead</span><br />
@@ -101,7 +107,7 @@
   <section class="strip">
     <p class="strip__label">Trusted by teams at</p>
     <div class="strip__track">
-      <div class="strip__items">
+      <div class="strip__items" id="marqueeTrack">
         <span>Vercel</span>
         <span>Linear</span>
         <span>Figma</span>
@@ -109,13 +115,8 @@
         <span>Loom</span>
         <span>Stripe</span>
         <span>Retool</span>
-        <span>Vercel</span>
-        <span>Linear</span>
-        <span>Figma</span>
-        <span>Notion</span>
-        <span>Loom</span>
-        <span>Stripe</span>
-        <span>Retool</span>
+        <span>Framer</span>
+        <span>Raycast</span>
       </div>
     </div>
   </section>
@@ -333,7 +334,6 @@
           <input type="email" class="cta-form__input" placeholder="your@email.com" required />
           <button type="submit" class="btn btn--primary">Join Waitlist</button>
         </form>
-        <p class="cta-form__note">Already 2,400+ people on the list. We're accepting teams in batches.</p>
       </div>
     </div>
   </section>

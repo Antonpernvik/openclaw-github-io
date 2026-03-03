@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>OpenClaw</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #050508;
+    color: #f0f0f8;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    width: 380px;
+    padding: 24px 20px 20px;
+  }
+
+  .logo {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+  }
+  .logo span {
+    background: linear-gradient(135deg, #6366f1, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .tagline {
+    font-size: 12px;
+    color: #4a4a68;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #7a7a98;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  input {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 9px 12px;
+    color: #f0f0f8;
+    font-size: 13px;
+    font-family: inherit;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  input:focus {
+    border-color: #6366f1;
+    background: rgba(99,102,241,0.08);
+  }
+  input::placeholder { color: #4a4a68; }
+
+  .row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  button[type="submit"] {
+    width: 100%;
+    padding: 11px;
+    background: linear-gradient(135deg, #6366f1, #06b6d4);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 6px;
+    transition: opacity 0.2s;
+  }
+  button[type="submit"]:hover { opacity: 0.88; }
+  button[type="submit"]:active { opacity: 0.75; }
+
+  .divider {
+    height: 1px;
+    background: rgba(255,255,255,0.06);
+    margin: 16px 0 14px;
+  }
+</style>
+</head>
+<body>
+
+<div class="logo">⬡ <span>OpenClaw</span></div>
+<p class="tagline">Internal Link Analyzer</p>
+
+<form id="form">
+  <div class="field">
+    <label for="sitemap">Sitemap URL</label>
+    <input type="url" id="sitemap" placeholder="https://example.com/sitemap.xml" required autofocus/>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="row-2">
+    <div class="field">
+      <label for="maxPages">Max pages</label>
+      <input type="number" id="maxPages" value="200" min="1" max="2000"/>
+    </div>
+    <div class="field">
+      <label for="delay">Delay (ms)</label>
+      <input type="number" id="delay" value="100" min="0" max="5000"/>
+    </div>
+  </div>
+
+  <button type="submit">Analyze →</button>
+</form>
+
+<script src="popup.js"></script>
+</body>
+</html>

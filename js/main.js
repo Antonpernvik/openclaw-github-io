@@ -5,6 +5,46 @@
 
 'use strict';
 
+/* ── GA4 EVENT HELPER ───────────────────────────── */
+function trackEvent(name, params) {
+  if (typeof gtag === 'function') {
+    gtag('event', name, params || {});
+  }
+}
+
+/* ── INFINITE MARQUEE ───────────────────────────── */
+(function initMarquee() {
+  const track = document.getElementById('marqueeTrack');
+  if (!track) return;
+
+  // Clone children until the strip is wider than 3× the viewport
+  function fillTrack() {
+    const original = [...track.children];
+    while (track.scrollWidth < window.innerWidth * 3) {
+      original.forEach(el => track.appendChild(el.cloneNode(true)));
+    }
+  }
+  fillTrack();
+
+  const GAP   = 64;    // matches CSS gap
+  const SPEED  = 0.6;  // px per frame
+  let pos = 0;
+
+  // Measure one "set" width (original items + their gaps)
+  const originalCount  = 9; // number of original items
+  const spanWidth      = track.children[0].offsetWidth;
+  const oneSetWidth    = originalCount * spanWidth + originalCount * GAP;
+
+  function tick() {
+    pos += SPEED;
+    // When we've scrolled one full set, snap back seamlessly
+    if (pos >= oneSetWidth) pos -= oneSetWidth;
+    track.style.transform = `translateX(-${pos}px)`;
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
 /* ── NAV: SCROLL STATE & MOBILE MENU ─────────────── */
 (function initNav() {
   const nav    = document.getElementById('nav');
@@ -313,6 +353,8 @@
 
     if (!input.value) return;
 
+    trackEvent('waitlist_signup', { email: input.value });
+
     btn.textContent = 'You\'re on the list! ✓';
     btn.style.background = 'linear-gradient(135deg, #10b981, #06b6d4)';
     btn.style.boxShadow  = '0 0 40px rgba(16,185,129,0.4)';
@@ -356,6 +398,34 @@
       if (!target) return;
       e.preventDefault();
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+})();
+
+/* ── EVENT TRACKING ─────────────────────────────── */
+(function initTracking() {
+  // Hero: "Get Early Access"
+  const ctaPrimary = document.querySelector('.hero__actions .btn--primary');
+  if (ctaPrimary) {
+    ctaPrimary.addEventListener('click', () => {
+      trackEvent('cta_click', { button: 'get_early_access', location: 'hero' });
+    });
+  }
+
+  // Hero: "See how it works"
+  const ctaGhost = document.querySelector('.hero__actions .btn--ghost');
+  if (ctaGhost) {
+    ctaGhost.addEventListener('click', () => {
+      trackEvent('cta_click', { button: 'see_how_it_works', location: 'hero' });
+    });
+  }
+
+  // Insights: klick på artikellänkar
+  document.querySelectorAll('.article__link, .article-card').forEach(el => {
+    el.addEventListener('click', () => {
+      const article = el.closest('article') || el;
+      const title   = article.querySelector('h2, h3')?.textContent?.trim() || 'unknown';
+      trackEvent('article_click', { article_title: title });
     });
   });
 })();
